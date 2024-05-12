@@ -1,3 +1,5 @@
+/* Areeba: Added Date Validaton check*/
+
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -8,12 +10,33 @@
 using namespace std;
 
 class CyclePhase {
+protected: // AREEBA: ADDED DATE VALIDATION CHECK
+    bool isValidDateFormat(const string& date) const {
+        if (date.size() != 10) return false;
+        if (date[2] != '/' || date[5] != '/') return false;
+
+        for (int i = 0; i < 10; ++i) {
+            if (i == 2 || i == 5) continue;
+            if (!isdigit(date[i])) return false;
+        }
+
+        int month = stoi(date.substr(0, 2));
+        int day = stoi(date.substr(3, 2));
+        int year = stoi(date.substr(6, 4));
+
+        if (month < 1 || month > 12) return false;
+        if (day < 1 || day > 31) return false; // Note: this doesn't handle month-specific limits
+        if (year < 1970 || year > 2024) return false;
+
+        return true;
+    }
 public:
     virtual void recordData() = 0;
     virtual string getName() = 0;
     virtual void storeDataToFile() = 0;
     virtual void recordSymptoms() = 0;
     virtual void recordDates() = 0;
+
 };
 
 class FollicularPhase : public CyclePhase {
@@ -54,11 +77,20 @@ public:
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
 
-    void recordDates() override {
-        cout << "Enter start date of the Follicular Phase (MM/DD/YYYY): ";
-        cin >> startDate;
-        cout << "Enter end date of the Follicular Phase (MM/DD/YYYY): ";
-        cin >> endDate;
+    void recordDates() override { 
+        string start, end;
+        do {
+            cout << "Enter start date of the Follicular Phase (MM/DD/YYYY): ";
+            cin >> start;
+        } while (!isValidDateFormat(start));
+
+        do {
+            cout << "Enter end date of the Follicular Phase (MM/DD/YYYY): ";
+            cin >> end;
+        } while (!isValidDateFormat(end)); // AREEBA: DATE VALIDATION CHECK
+
+        startDate = start;
+        endDate = end;
     }
 
     void storeDataToFile() override {
@@ -129,10 +161,19 @@ public:
     }
 
     void recordDates() override {
-        cout << "Enter start date of the Ovulation Phase (MM/DD/YYYY): ";
-        cin >> startDate;
-        cout << "Enter end date of the Ovulation Phase (MM/DD/YYYY): ";
-        cin >> endDate;
+        string start, end;
+        do {
+            cout << "Enter start date of the Ovulation Phase (MM/DD/YYYY): ";
+            cin >> start;
+        } while (!isValidDateFormat(start));
+
+        do {
+            cout << "Enter end date of the Ovulation Phase (MM/DD/YYYY): ";
+            cin >> end;
+        } while (!isValidDateFormat(end)); // AREEBA: DATE VALIDATION CHECK
+
+        startDate = start;
+        endDate = end;
     }
 
     void storeDataToFile() override {
@@ -177,7 +218,7 @@ public:
         cout << "Do you want to record dates? (y/n): ";
         cin >> choice;
         if (choice == 'y' || choice == 'Y') {
-            recordDates();
+            recordDates(); 
         }
         // Store the recorded data in files
         storeDataToFile();
@@ -203,10 +244,19 @@ public:
     }
 
     void recordDates() override {
-        cout << "Enter start date of the Luteal Phase (MM/DD/YYYY): ";
-        cin >> startDate;
-        cout << "Enter end date of the Luteal Phase (MM/DD/YYYY): ";
-        cin >> endDate;
+        string start, end;
+        do {
+            cout << "Enter start date of the Luteal Phase (MM/DD/YYYY): ";
+            cin >> start;
+        } while (!isValidDateFormat(start));
+
+        do {
+            cout << "Enter end date of the Luteal Phase (MM/DD/YYYY): ";
+            cin >> end;
+        } while (!isValidDateFormat(end)); // AREEBA: DATE VALIDATION CHECK
+
+        startDate = start;
+        endDate = end;
     }
 
     void storeDataToFile() override {
@@ -277,10 +327,19 @@ public:
     }
 
     void recordDates() override {
-        cout << "Enter start date of the Menstrual Phase (MM/DD/YYYY): ";
-        cin >> startDate;
-        cout << "Enter end date of the Menstrual Phase (MM/DD/YYYY): ";
-        cin >> endDate;
+        string start, end;
+        do {
+            cout << "Enter start date of the Menstrual Phase (MM/DD/YYYY): ";
+            cin >> start;
+        } while (!isValidDateFormat(start));
+
+        do {
+            cout << "Enter end date of the Menstrual Phase (MM/DD/YYYY): ";
+            cin >> end;
+        } while (!isValidDateFormat(end));
+
+        startDate = start;
+        endDate = end;
     }
 
     void storeDataToFile() override {
