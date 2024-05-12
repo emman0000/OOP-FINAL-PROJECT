@@ -315,7 +315,7 @@ private:
 class SymptomTracker {
 public:
     static void trackSymptoms() {
-        cout << "Welcome to the Symptom Tracker!" << endl;
+        cout << "Welcome to symptom soother!" << endl;
         cout << "Please choose from the following symptoms:" << endl;
         cout << "1. Headaches" << endl;
         cout << "2. Cramps" << endl;
@@ -382,6 +382,8 @@ private:
 
 int main() {
     // Create instances of each phase and record data for them
+       // Track symptoms
+    SymptomTracker::trackSymptoms();
     FollicularPhase follicular;
     follicular.recordData();
     OvulationPhase ovulation;
@@ -390,9 +392,6 @@ int main() {
     luteal.recordData();
     MenstrualPhase menstrual;
     menstrual.recordData();
-
-    // Track symptoms
-    SymptomTracker::trackSymptoms();
 
     return 0; 
 }//end main
