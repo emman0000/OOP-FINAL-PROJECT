@@ -1,12 +1,14 @@
-/*Rumaisa added exception handling, Areeba can you add the validation checks to this file after ensuring that they're running with this
-version*/
-
+/* 
+Areeba has added date validity check 
+The <regex> library is used to perform pattern matching for date validation.
+*/
 #include <iostream>
 #include <fstream>
 #include <vector>
 #include <string>
 #include <iomanip> // for setw
 #include <limits>
+#include <regex> // for regular expressions
 
 using namespace std;
 
@@ -105,9 +107,23 @@ public:
 
     void recordDates() override {
         cout << "Enter start date of the Follicular Phase (MM/DD/YYYY): ";
-        cin >> startDate;
+        startDate = validateDateInput();
         cout << "Enter end date of the Follicular Phase (MM/DD/YYYY): ";
-        cin >> endDate;
+        endDate = validateDateInput();
+    }
+
+    string validateDateInput() {
+        string date;
+        regex datePattern("(0[1-9]|1[0-2])/(0[1-9]|[1-2][0-9]|3[0-1])/([0-9]{4})");
+        while (true) {
+            cin >> date;
+            if (regex_match(date, datePattern)) {
+                break;
+            } else {
+                cout << "Invalid date format. Please enter in MM/DD/YYYY format: ";
+            }
+        }
+        return date;
     }
 
     void storeDataToFile() override {
@@ -225,9 +241,23 @@ public:
 
     void recordDates() override {
         cout << "Enter start date of the Ovulation Phase (MM/DD/YYYY): ";
-        cin >> startDate;
+        startDate = validateDateInput();
         cout << "Enter end date of the Ovulation Phase (MM/DD/YYYY): ";
-        cin >> endDate;
+        endDate = validateDateInput();
+    }
+
+    string validateDateInput() {
+        string date;
+        regex datePattern("(0[1-9]|1[0-2])/(0[1-9]|[1-2][0-9]|3[0-1])/([0-9]{4})");
+        while (true) {
+            cin >> date;
+            if (regex_match(date, datePattern)) {
+                break;
+            } else {
+                cout << "Invalid date format. Please enter in MM/DD/YYYY format: ";
+            }
+        }
+        return date;
     }
 
     void storeDataToFile() override {
@@ -345,9 +375,23 @@ public:
 
     void recordDates() override {
         cout << "Enter start date of the Luteal Phase (MM/DD/YYYY): ";
-        cin >> startDate;
+        startDate = validateDateInput();
         cout << "Enter end date of the Luteal Phase (MM/DD/YYYY): ";
-        cin >> endDate;
+        endDate = validateDateInput();
+    }
+
+    string validateDateInput() {
+        string date;
+        regex datePattern("(0[1-9]|1[0-2])/(0[1-9]|[1-2][0-9]|3[0-1])/([0-9]{4})");
+        while (true) {
+            cin >> date;
+            if (regex_match(date, datePattern)) {
+                break;
+            } else {
+                cout << "Invalid date format. Please enter in MM/DD/YYYY format: ";
+            }
+        }
+        return date;
     }
 
     void storeDataToFile() override {
@@ -466,9 +510,23 @@ public:
 
     void recordDates() override {
         cout << "Enter start date of the Menstrual Phase (MM/DD/YYYY): ";
-        cin >> startDate;
+        startDate = validateDateInput();
         cout << "Enter end date of the Menstrual Phase (MM/DD/YYYY): ";
-        cin >> endDate;
+        endDate = validateDateInput();
+    }
+
+    string validateDateInput() {
+        string date;
+        regex datePattern("(0[1-9]|1[0-2])/(0[1-9]|[1-2][0-9]|3[0-1])/([0-9]{4})");
+        while (true) {
+            cin >> date;
+            if (regex_match(date, datePattern)) {
+                break;
+            } else {
+                cout << "Invalid date format. Please enter in MM/DD/YYYY format: ";
+            }
+        }
+        return date;
     }
 
     void storeDataToFile() override {
@@ -499,6 +557,7 @@ private:
     string endDate;
     vector<string> symptoms;
 };
+
 int main() {
     // Create instances of each phase and record data for them
     cout<<"------------------------------------------------------"<<endl;
